@@ -36,7 +36,7 @@ class AvatarsController < ApplicationController
       raise ActionController::RoutingError.new("invalid user name")
     end
 
-    u = User.where(:username => username).first!
+    u = User.where("lower(username) = ?", username.downcase).first!
 
     if !(av = u.fetched_avatar(size))
       raise ActionController::RoutingError.new("failed fetching avatar")
