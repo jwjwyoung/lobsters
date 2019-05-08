@@ -3,7 +3,7 @@ class UsersController < ApplicationController
                 :only => [:enable_invitation, :disable_invitation, :ban, :unban]
 
   def show
-    @showing_user = User.where(:username => params[:username]).first!
+    @showing_user = User.where("lower(username) = ?", params[:username].downcase).first!
     @title = "User #{@showing_user.username}"
 
     if @user.try(:is_moderator?)
